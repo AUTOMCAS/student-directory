@@ -3,10 +3,16 @@ def print_header
   puts "-------------"
 end
 
-def print(list)
-  list.each_with_index do |student, idx|
-    puts student.to_s.center(100, "***")
+def print(student_list)
+  cohort_filter = :november
+  filtered_list = []
+  
+  student_list.map do |hash| 
+    if hash[:cohort] = cohort_filter
+      puts hash[:name]
+    end
   end
+
 end
 
 def print_footer(students)
@@ -18,10 +24,8 @@ def input_students
   puts "To finish, just hit return twice"
 
   students = []
-
   name = gets.chomp
 
-  
   while !name.empty? do  
     puts "Please enter the hobby of the student"
     hobby = gets.chomp
@@ -29,9 +33,12 @@ def input_students
     height = gets.chomp
     puts "Please enter the cohort of the student"
     cohort = gets.chomp
-    cohort = :november if cohort.empty?
-   
-    until  datecheck(cohort) == true
+
+    until datecheck(cohort) == true
+      if cohort.empty?
+        cohort = :november 
+        break
+      end
       puts "Please check your spelling for cohort month"
       cohort = gets.chomp  
     end
