@@ -24,15 +24,15 @@ def input_students
   puts "To finish, just hit return twice"
 
   students = []
-  name = gets.chomp
+  name = gets.gsub(/\n/, '')
 
   while !name.empty? do  
     puts "Please enter the hobby of the student"
-    hobby = gets.chomp
+    hobby = gets.gsub(/\n/, '')
     puts "Please enter the height of the student"
-    height = gets.chomp
+    height = gets.gsub(/\n/, '')
     puts "Please enter the cohort of the student"
-    cohort = gets.chomp
+    cohort = gets.gsub(/\n/, '')
 
     until datecheck(cohort) == true
       if cohort.empty?
@@ -40,13 +40,13 @@ def input_students
         break
       end
       puts "Please check your spelling for cohort month"
-      cohort = gets.chomp  
+      cohort = gets.gsub(/\n/, '')  
     end
 
     students << {name: name, hobby: hobby, height: height, cohort: cohort}
   
     puts students.count > 1 ? "Now we have #{students.count} students" : "Now we have #{students.count} student"
-    name = gets.chomp
+    name = gets.gsub(/\n/, '')
   end
 
   students
