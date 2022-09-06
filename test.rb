@@ -1,5 +1,3 @@
-input = gets.gsub(/\n/, '')
-
-
-print input
-print input
+file = File.open("testfile.txt", "w")
+file.puts "Test strings"
+file.close
