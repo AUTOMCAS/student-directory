@@ -17,10 +17,10 @@ def process(selection)
     show_students
   when "3"
     puts menu_list["3"]
-    save_students
+    filename_input(:save)
   when "4"
     puts menu_list["4"]
-    load_students
+    filename_input(:load)
   when "9"
     puts menu_list["9"]
     exit
@@ -40,8 +40,8 @@ def menu_list
   menu = { 
     "1" => "1. Input the students",
     "2" => "2. Show the students",
-    "3" => "3. Save the list to students.csv",
-    "4" => "4. Load list from students.csv",
+    "3" => "3. Save list",
+    "4" => "4. Load list",
     "9" => "9. Exit"
   }
 end
@@ -79,8 +79,22 @@ def input_students
   end
 end
 
-def save_students
-  file = File.open("students.csv", "w")
+def filename_input(menu_input)
+  puts "Enter a filename or press enter for default"
+  filename = gets.chomp 
+  if filename.empty? && menu_input == :save
+    save_students
+  elsif filename.empty? && menu_input == :load
+    load_students
+  elsif menu_input == :save
+    save_students(filename)
+  elsif menu_input == :load
+    load_students(filename)
+  end
+end
+
+def save_students(filename = "students.csv")
+  file = File.open(filename, "w")
   @students.each do |student|
     file.puts [student[:name], student[:cohort]].join(", ")
   end
