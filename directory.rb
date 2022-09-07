@@ -1,4 +1,5 @@
 @students = []
+require 'csv'
 
 def interactive_menu
   loop do
@@ -96,17 +97,15 @@ end
 def save_students(filename = "students.csv")
   open(filename, "w") do |file|
     @students.each do |student|
-      file.puts [student[:name], student[:cohort]].join(", ")
+    file.puts [student[:name], student[:cohort]].join(",")
     end
   end
 end
 
 def load_students(filename = "students.csv")
-  open(filename, "r") do |file|
-    file.readlines.each do |line|
-      name, cohort = line.chomp.split(",")
-      push_student_info(name, cohort)
-    end
+  CSV.foreach(filename) do |row|
+    name, cohort = row
+    push_student_info(name, cohort)
   end
 end
 
