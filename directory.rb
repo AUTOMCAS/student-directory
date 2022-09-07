@@ -95,9 +95,9 @@ def filename_input(menu_input)
 end
 
 def save_students(filename = "students.csv")
-  open(filename, "w") do |file|
+  CSV.open(filename, "w") do |file|
     @students.each do |student|
-    file.puts [student[:name], student[:cohort]].join(",")
+      file << [student[:name], student[:cohort]]
     end
   end
 end
@@ -125,7 +125,7 @@ def try_load_students
 end
 
 def push_student_info(name, cohort)
-  @students << {name: name, cohort: cohort.to_sym}
+  @students << {name: name, cohort: cohort}
 end
 
 try_load_students
