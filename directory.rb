@@ -81,7 +81,7 @@ end
 
 def filename_input(menu_input)
   puts "Enter a filename or press enter for default"
-  filename = gets.chomp 
+  filename = STDIN.gets.chomp 
   if filename.empty? && menu_input == :save
     save_students
   elsif filename.empty? && menu_input == :load
@@ -94,20 +94,20 @@ def filename_input(menu_input)
 end
 
 def save_students(filename = "students.csv")
-  file = File.open(filename, "w")
-  @students.each do |student|
-    file.puts [student[:name], student[:cohort]].join(", ")
+  open(filename, "w") do |file|
+    @students.each do |student|
+      file.puts [student[:name], student[:cohort]].join(", ")
+    end
   end
-  file.close
 end
 
 def load_students(filename = "students.csv")
-  file = File.open(filename, "r")
-  file.readlines.each do |line|
-    name, cohort = line.chomp.split(",")
-    push_student_info(name, cohort)
+  open(filename, "r") do |file|
+    file.readlines.each do |line|
+      name, cohort = line.chomp.split(",")
+      push_student_info(name, cohort)
+    end
   end
-  file.close
 end
 
 def try_load_students
