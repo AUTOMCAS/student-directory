@@ -59,7 +59,8 @@ def input_students
   name = STDIN.gets.chomp
   
   while !name.empty? do
-    @students << {name: name, cohort: :november}
+    push_student_info(name, :november)
+    #@students << {name: name, cohort: :november}
     puts "Now we have #{@students.count} students"
     name = STDIN.gets.chomp
   end
@@ -79,7 +80,8 @@ def load_students(filename = "students.csv")
   file = File.open(filename, "r")
   file.readlines.each do |line|
     name, cohort = line.chomp.split(",")
-    @students << {name: name, cohort: cohort.to_sym}
+    push_student_info(name, cohort)
+    #@students << {name: name, cohort: cohort.to_sym}
   end
   file.close
 end
@@ -94,6 +96,10 @@ def try_load_students
     puts "Sorry, #{filename} does not exist."
     exit
   end
+end
+
+def push_student_info(name, cohort)
+  @students << {name: name, cohort: cohort.to_sym}
 end
 
 try_load_students

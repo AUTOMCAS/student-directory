@@ -1,3 +1,7 @@
-file = File.open("testfile.txt", "w")
-file.puts "Test strings"
-file.close
+arr = ["Joe Wilson", 17, "salesman"]
+
+name, age, job = arr
+
+puts name
+puts job
+puts age
